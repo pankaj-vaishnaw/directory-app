@@ -1,0 +1,126 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.navigation-bar-container{
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  background-color: #4472C4;
+  width: 100%;
+  height: 40px;
+  color: azure;
+
+}
+.navbar-names{
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  
+}
+ul,li{
+  all: unset;
+  margin-left: 20px;
+}
+button{
+  /* all: unset; */
+  margin: 5px;
+cursor: pointer;
+}
+.main-borderd-box-container{
+  border: 1px solid black;
+  height: 350px;
+  width: 90%;
+  margin: 5%;
+}
+.name-button-inside-container{
+  all: unset;
+  
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  height: 40px;
+  
+}
+input{
+  
+  width: 98%;
+  text-align: center;
+ 
+
+}
+.find-btn-for-search{
+  height:25px ;
+  width: 2rem;
+}
+.table-container{
+  width: 100%;
+  margin-top: 20px;
+
+ 
+}
+.tableParent{
+  width: 100%;
+  overflow: auto;
+}
+table{
+  width: 100%;
+  border: 1px solid black;
+
+}
+th,td{
+   border: 1px solid black;
+}
+td{
+  width: fit-content;
+  text-align: center;
+}
+.add-button {
+  width: 10vw;
+  background-color: #4472C4;
+  border: none;
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+  margin-top: 200px;
+  margin-left: 70vw;
+}
+.Header-button{
+  all: unset;
+  background-color: #4472C4;
+  border: 1px solid black;
+  margin: 10px;
+  height: 30px;
+  color: aliceblue;
+}
+.row-btn-for-save{
+  all: unset;
+  margin: 5px;
+  cursor: pointer;
+  text-decoration: 0.7px solid black underline;
+}
+.row-btn-for-delete{
+  all: unset;
+  cursor: pointer;
+  text-decoration:0.7px solid black underline;
+}
+.find-detail {
+  border: 1px solid black;
+  margin-top: 20px;
+  text-align: start;
+}
+.search {
+  margin: 30px;
+  width: 25%;
+  height: 25px;
+}
+.btn-find {
+  background-color: #4472C4;
+  color: white;
+  border: none;
+  width: 50px;
+  height: 30px;
+
+  cursor: pointer;
+}
+.information-of-no-data{
+  text-align: center;
+  margin-top: 30px;
+}
