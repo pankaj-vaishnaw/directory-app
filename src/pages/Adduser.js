@@ -1,4 +1,3 @@
-
 import { useState,useEffect } from 'react';
 function Adduser() {
   const [name, setName] = useState("");
@@ -7,9 +6,11 @@ function Adduser() {
   const [number, setNumber] = useState("");
   const [age, setAge] = useState("");
   const [singleDetail, setSingleDetail] = useState({});
-  const [details, setDetails] = useState([]);
-  const [hide, setHide] = useState("");
+  const [data,setData]=useState([]);
+  const [addRow,setAddRow]=useState(false)
 
+  useEffect(()=>{setData(JSON.parse(localStorage.getItem('data')))},[])
+ 
   useEffect(() => {
     setSingleDetail({
       Name: `${name}`,
@@ -32,109 +33,69 @@ function Adduser() {
     }
   }, [dob]);
 
-  // const add = () => {
-  //   if (name === "" || dob === "" || aadhar === "" || number === "") {
-  //     alert("Fill all the inputs!");
-  //   } else if (aadhar.length !== 12) {
-  //     alert("Aadhar Number should be 12 digits long.");
-  //   } else if (number.length !== 10) {
-  //     alert("Mobile Number should be 10 digits long.");
-  //   } else {
-  //     setDetails([...details, singleDetail]);
-  //     setHide("none");
-  //   }
-  // };
 
-const setLocalStorage =()=>{
-
-  localStorage.setItem("data", JSON.stringify([singleDetail]));
-}
+  const setLocalStorage = (obj)=>{
+    let a = [];
+    a = JSON.parse(localStorage.getItem('data')) || [];
+    a.push(obj);
+    localStorage.setItem('data', JSON.stringify(a));
+    window.location.reload()
+  }
   
-
-  const removeAfterSave = (e) => {
-    console.log(e);
-    let arr = [];
-    details.forEach((ele) => {
-      if (ele.AadharNumber !== e.AadharNumber) {
-        arr.push(ele);
-      }
-    });
-    setDetails(arr);
-  };
-
-  const remove = () => {
-    setName("");
-    setDob("");
-    setAadhar("");
-    setNumber("");
-    setAge("");
-  };
-
-  const display = () => {
-    setHide("");
-    setName("");
-    setDob("");
-    setAadhar("");
-    setNumber("");
-    setAge("");
-  };
+  const deleteData = (id) =>{
+    let a = [];
+    a = JSON.parse(localStorage.getItem('data')) || [];
+    a.splice(a.findIndex(e=>e.AadharNumber===id),1)
+   localStorage.setItem('data', JSON.stringify(a));
+   window.location.reload()
+  }
+ 
   return (
     <div className="main-borderd-box-container flex">
       <button type="button" className="name-button-inside-container"><b>Add New Person</b></button>
+      
       <div>
+        
         <table className='table-container'>
           <thead className='tablehead'>
             <tr>
               <th className="thead">Name</th>
               <th className="thead">Date of birth</th>
-              <th className="thead">Aadhar Number</th>
-              <th className="thead">Mobile Number</th>
+              <th className="thead">Aadhar No.</th>
+              <th className="thead">Mobile No.</th>
               <th className="thead">Age</th>
               <th className="thead">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {details.map((e, i) => {
-              return (
-                <tr key={i}>
-                  <td>
-                    <input defaultValue={e.Name} type={"text"} />
-                  </td>
-                  <td>
-                    <input
-                      defaultValue={e.DateOfBirth}
-                      className="input-date"
-                      type={"date"}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className="input-num"
-                      defaultValue={e.AadharNumber}
-                      type={"number"}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      className="input-num"
-                      defaultValue={e.MobileNumber}
-                      type={"number"}
-                    />
-                  </td>
-                  <td>{e.Age}</td>
-                  <td>
-                    <button className="row-btn-for-save">Save</button>
-                    <button
-                      className="row-btn-for-delete"
-                      onClick={() => removeAfterSave(e)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-            <tr style={{ display: hide }}>
+            {
+            data?.map((e,i)=>{
+             return <tr id={i} key={i}>
+              <td>
+                {e.Name}
+              </td>
+              <td>
+                {e.DateOfBirth}
+              </td>
+              <td>
+                {e.AadharNumber}
+              </td>
+              <td>
+                {e.MobileNumber}
+              </td>
+              <td>{e.Age}</td>
+              <td>
+                <button className="row-btn-for-delete" onClick={()=>deleteData(e.AadharNumber)}>
+                  Delete
+                </button>
+              </td>
+            </tr>
+            })
+            }
+            {
+              addRow?
+
+              <tr>
               <td>
                 <input
                   value={name}
@@ -168,23 +129,24 @@ const setLocalStorage =()=>{
               </td>
               <td>{age}</td>
               <td>
-                <button className="row-btn-for-save" onClick={() => setLocalStorage()}>
+                <button className="row-btn-for-save" onClick={() => setLocalStorage(singleDetail)}>
                   Save
                 </button>
-                <button className="row-btn-for-delete" onClick={() => remove()}>
-                  Delete
+                <button className="row-btn-for-delete">
+                  Clear
                 </button>
               </td>
             </tr>
+                : null
+            }
+           
           </tbody>
         </table>
       </div>
-      <button className="add-button" onClick={() => display()}>
+      <button className="add-button" onClick={()=>setAddRow(true)}>
         Add
       </button>
     </div>
   );
 };
-
-  
   export default Adduser;
